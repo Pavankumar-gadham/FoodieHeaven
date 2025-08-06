@@ -1,0 +1,120 @@
+<div class="auth-wrapper">
+<div class="auth-container">
+  <div class="auth-card">
+    <h2 class="auth-title">Create Your Account</h2>
+    
+    <form #registerForm="ngForm" (ngSubmit)="register()" novalidate class="auth-form">
+      <!-- Username Field -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input 
+          type="text" 
+          id="username"
+          [(ngModel)]="username" 
+          name="username" 
+          #usernameRef="ngModel" 
+          required 
+          minlength="6"
+          class="form-input"
+          [class.invalid]="usernameRef.invalid && (usernameRef.touched || registerForm.submitted)">
+        <div 
+          *ngIf="usernameRef.invalid && (usernameRef.touched || registerForm.submitted)" 
+          class="error-message">
+          <svg class="error-icon" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+          </svg>
+          Username must be at least 6 characters
+        </div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email"
+          [(ngModel)]="email" 
+          name="email" 
+          #emailRef="ngModel" 
+          required 
+          email
+          class="form-input"
+          [class.invalid]="emailRef.invalid && (emailRef.touched || registerForm.submitted)">
+        <div 
+          *ngIf="emailRef.invalid && (emailRef.touched || registerForm.submitted)" 
+          class="error-message">
+          <svg class="error-icon" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+          </svg>
+          <div *ngIf="emailRef.errors?.['required']">Email is required</div>
+          <div *ngIf="emailRef.errors?.['email']">Please enter a valid email</div>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password"
+          [(ngModel)]="password" 
+          name="password" 
+          #passwordRef="ngModel" 
+          required 
+          minlength="6"
+          class="form-input"
+          [class.invalid]="passwordRef.invalid && (passwordRef.touched || registerForm.submitted)">
+        <div 
+          *ngIf="passwordRef.invalid && (passwordRef.touched || registerForm.submitted)" 
+          class="error-message">
+          <svg class="error-icon" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+          </svg>
+          Password must be at least 6 characters
+        </div>
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input 
+          type="password" 
+          id="confirmPassword"
+          [(ngModel)]="confirmPassword" 
+          name="confirmPassword" 
+          #confirmPasswordRef="ngModel" 
+          required 
+          minlength="6"
+          class="form-input"
+          [class.invalid]="confirmPasswordRef.invalid && (confirmPasswordRef.touched || registerForm.submitted)">
+        <div 
+          *ngIf="confirmPasswordRef.invalid && (confirmPasswordRef.touched || registerForm.submitted)" 
+          class="error-message">
+          <svg class="error-icon" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+          </svg>
+          Passwords must match
+        </div>
+      </div>
+
+      <!-- Always visible submit button -->
+      <button type="submit" class="auth-button" 
+          [class.disabled]="registerForm.invalid" 
+          [disabled]="registerForm.invalid">
+    Register
+    <svg class="arrow-icon" viewBox="0 0 24 24">
+      <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+  </button>
+      
+      <div class="auth-footer">
+        Already registered? <a routerLink="/login" class="auth-link">Login here!</a>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="auth-image-container">
+    <img src="assets/images/Designer.png" alt="Login Illustration">
+  </div>
+</div>
+

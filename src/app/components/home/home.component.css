@@ -1,0 +1,284 @@
+
+.newsletter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(120deg, #f8ffea 0%, #e0f2ff 100%);
+  gap: 48px;
+  padding: 48px 16px;
+  border-radius: 32px;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.12);
+  overflow: hidden;
+  margin: 32px auto;
+  max-width: 1100px;
+  transition: box-shadow 0.4s cubic-bezier(.7,.1,.63,1.11);
+}
+
+.newsletter:hover {
+  box-shadow: 0 16px 48px 0 rgba(0,0,0,0.18);
+}
+
+/* Content & layout */
+.newsletter-content {
+  flex: 2;
+  min-width: 260px;
+  animation: fadeInUp 1s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+.newsletter-content h4 {
+  color: #15c39a;
+  font-size: 1.1rem;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  text-shadow: 0 2px 8px rgba(21,195,154,0.10);
+  animation: fadeIn 1.2s 0.1s backwards;
+}
+
+.newsletter-content h1 {
+  font-size: 2rem;
+  margin: 0 0 16px 0;
+  color: #112;
+  font-family: 'Montserrat', sans-serif;
+  animation: fadeIn 1s 0.2s backwards;
+}
+.newsletter-content h1 em {
+  background: linear-gradient(to right, #15c39a, #4ac1ff);
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.newsletter-content p {
+  font-size: 1rem;
+  color: #234;
+  margin-bottom: 24px;
+  animation: fadeIn 1s 0.25s backwards;
+}
+
+/* Form styling */
+.email-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 2px 10px rgba(90,188,255,0.07);
+  padding: 8px;
+  transition: box-shadow 0.3s;
+  animation: fadeInUp 1s 0.5s backwards;
+}
+.email-form:focus-within {
+  box-shadow: 0 4px 16px rgba(21,195,154,0.15);
+}
+
+.email-form input[type="email"] {
+  border: none;
+  font-size: 1.02rem;
+  padding: 12px 16px;
+  border-radius: 16px;
+  outline: none;
+  width: 220px;
+  transition: box-shadow 0.3s, background 0.3s;
+  background: #f5faff;
+  color: #123;
+}
+.email-form input[type="email"]:focus {
+  background: #e0f7fa;
+  box-shadow: 0 0 4px rgba(21,195,154,0.20);
+}
+
+.email-form button {
+  background: linear-gradient(90deg, #15c39a, #4ac1ff);
+  border: none;
+  padding: 9px 18px;
+  border-radius: 18px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(90,188,255,0.09);
+  transition: background 0.25s, box-shadow 0.25s, transform 0.12s;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.email-form button:hover, .email-form button:focus {
+  background: linear-gradient(90deg, #4ac1ff, #15c39a);
+  box-shadow: 0 4px 16px rgba(21,195,154,0.22);
+  transform: scale(1.06);
+}
+.email-form button span {
+  font-size: 1.25em;
+  margin-left: 0;
+  animation: bounce 1.2s infinite;
+}
+
+/* Image styling with parallax-like float effect */
+.newsletter-image {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  animation: floatAnim 5s infinite alternate;
+}
+.newsletter-image img {
+  max-width: 290px;
+  width: 100%;
+  border-radius: 32px 12px 32px 12px;
+  box-shadow: 0 6px 20px -2px rgba(90,188,255,0.14);
+  transition: box-shadow 0.3s;
+  animation: imageFadeIn 1.4s cubic-bezier(.97,-0.18,.13,.95);
+}
+.newsletter-image img:hover {
+  box-shadow: 0 14px 50px -4px rgba(21,195,154,0.19);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to {opacity: 1;}
+}
+@keyframes imageFadeIn {
+  0% { opacity: 0; transform: scale(0.9) rotate(-2deg);}
+  70% { opacity: 1; transform: scale(1.03);}
+  100% { opacity: 1; transform: scale(1);}
+}
+@keyframes bounce {
+  0%, 100% {transform: translateY(0);}
+  50% {transform: translateY(-3px);}
+}
+@keyframes floatAnim {
+  0% {transform: translateY(0);}
+  100% {transform: translateY(-12px);}
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  .newsletter {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 28px;
+    padding: 38px 6vw;
+  }
+  .newsletter-image {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .newsletter-content {
+    text-align: center;
+  }
+  .email-form {
+    justify-content: center;
+  }
+}
+@media (max-width: 500px) {
+  .newsletter {
+    border-radius: 14px;
+    box-shadow: 0 3px 16px 0 rgba(0,0,0,0.11);
+    padding: 18px 2vw;
+    gap: 18px;
+  }
+  .newsletter-content h1 {
+    font-size: 1.35rem;
+  }
+  .newsletter-image img {
+    max-width: 96vw;
+    border-radius: 18px 7px 18px 7px;
+  }
+  .email-form input[type="email"] {
+    width: 100px;
+    font-size: 0.98rem;
+    padding: 11px 8px;
+  }
+}
+
+/* Container styles */
+.features-section {
+  display: flex;
+  gap: 32px;
+  background: #faf6ed;
+  padding: 32px 20px;
+  justify-content: center;
+  align-items: stretch;
+}
+@media (max-width: 900px) {
+  .features-section {
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    padding: 26px 10px;
+  }
+}
+
+/* Card styles */
+.feature-card {
+  background: #fffaf6;
+  border-radius: 20px;
+  box-shadow: 0 1px 8px 0 rgba(211, 209, 198, 0.30);
+  padding: 0 0 12px 0;
+  max-width: 340px;
+  min-width: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.28s;
+  text-align: center;
+}
+.feature-card:hover {
+  box-shadow: 0 4px 20px 0 rgba(196,185,154,0.20);
+}
+
+/* Image styles */
+.feature-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 18px 18px 0 0;
+  display: block;
+  margin-bottom: 18px;
+}
+@media (max-width: 600px) {
+  .feature-card {
+    max-width: 95vw;
+  }
+  .feature-img {
+    height: 170px;
+  }
+}
+
+/* Text styles */
+.feature-text h3 {
+  font-size: 1.08em;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  color: #24201a;
+}
+.feature-text p {
+  font-size: 1em;
+  margin: 0;
+  color: #534c37;
+  font-weight: normal;
+}
+
+.features {
+  width: 100%;
+  overflow: hidden; 
+}
+
+.features .home img {
+  width: 100%;
+  height: auto; 
+  display: block;
+  object-fit: cover; 
+}
+
+
+
+

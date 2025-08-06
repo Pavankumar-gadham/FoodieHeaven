@@ -1,0 +1,18 @@
+<div class="checkout-container">
+  <h2>🧾 Checkout</h2>
+
+  <div *ngFor="let recipe of cartItems" class="checkout-item">
+    <img [src]="recipe.image" alt="{{ recipe.title }}" class="checkout-image" />
+    <div class="checkout-info">
+      <h4>{{ recipe.title }}</h4>
+      <p>Price: ₹{{ recipe.price }}</p>
+    </div>
+  </div>
+
+  <div class="checkout-summary">
+    <p><strong>Subtotal:</strong> ₹{{ subtotal }}</p>
+    <p><strong>Delivery Charges:</strong> ₹{{ deliveryCharge }}</p>
+    <h3><strong>Grand Total:</strong> ₹{{ grandTotal }}</h3>
+    <button (click)="payNow()">Proceed to Payment</button>
+  </div>
+</div>

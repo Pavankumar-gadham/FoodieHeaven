@@ -1,0 +1,70 @@
+
+<div class="form-container">
+  <h2>{{ isEdit ? 'Edit Recipe' : 'Add Recipe' }}</h2>
+
+  <form #recipeForm="ngForm" (ngSubmit)="saveRecipe()" novalidate>
+
+    <div class="form-group">
+      <input type="text" [(ngModel)]="recipe.title" name="title" required minlength="3" placeholder="Title">
+      <div *ngIf="recipeForm.submitted && recipeForm.controls['title']?.invalid" class="error animate__animated animate__fadeIn">
+        Title is required and must be at least 3 characters.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="text" [(ngModel)]="recipe.description" name="description" required placeholder="Description">
+      <div *ngIf="recipeForm.submitted && recipeForm.controls['description']?.invalid" class="error animate__animated animate__fadeIn">
+        Description is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <select [(ngModel)]="recipe.category" name="category" required>
+        <option value="">-- Select Category --</option>
+        <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+      </select>
+      <div *ngIf="recipeForm.submitted && recipeForm.controls['category']?.invalid" class="error animate__animated animate__fadeIn">
+        Please select a category.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="number" [(ngModel)]="recipe.preparation_time" name="preparation_time" required min="1" placeholder="Preparation Time (mins)">
+      <div *ngIf="recipeForm.submitted && recipeForm.controls['preparation_time']?.invalid" class="error animate__animated animate__fadeIn">
+        Preparation time is required and must be at least 1 minute.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="number" [(ngModel)]="recipe.cooking_time" name="cooking_time" required min="1" placeholder="Cooking Time (mins)">
+      <div *ngIf="recipeForm.submitted && recipeForm.controls['cooking_time']?.invalid" class="error animate__animated animate__fadeIn">
+        Cooking time is required and must be at least 1 minute.
+      </div> 
+    </div>
+
+    <div class="form-group">
+      <input type="number" [(ngModel)]="recipe.rating" name="rating" required min="1" max="5" placeholder="Rating (1-5)">
+      <div *ngIf="recipeForm.submitted && recipeForm.controls['rating']?.invalid" class="error animate__animated animate__fadeIn">
+        Rating must be between 1 and 5.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <textarea [(ngModel)]="recipe.process" name="process" required placeholder="Preparation Process"></textarea>
+      <div *ngIf="recipeForm.submitted && recipeForm.controls['process']?.invalid" class="error animate__animated animate__fadeIn">
+        Process description is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="file" (change)="onFileSelected($event)" [required]="!isEdit" accept="image/*">
+      <div *ngIf="fileError" class="error animate__animated animate__fadeIn">
+        Please select an image file.
+      </div>
+    </div>
+
+    <button type="submit" class="animate__animated animate__pulse animate__delay-1s">
+      {{ isEdit ? 'Update' : 'Add' }} Recipe
+    </button>
+  </form>
+</div>

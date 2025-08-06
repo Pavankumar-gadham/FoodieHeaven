@@ -1,0 +1,120 @@
+/* Root variables for consistency */
+:root {
+  --primary-color: #ff6b6b;
+  --secondary-color: #f7f7f7;
+  --text-color: #333;
+  --error-color: #e74c3c;
+  --border-radius: 10px;
+  --transition-speed: 0.3s;
+}
+
+/* Container */
+.form-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  animation: fadeInUp 0.6s ease-in-out;
+}
+
+/* Heading */
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: var(--primary-color);
+  font-size: 1.8rem;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Inputs & Textarea & Select */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 12px;
+  border: 1.5px solid #ccc;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 8px rgba(255, 107, 107, 0.2);
+  outline: none;
+}
+
+/* Placeholder style */
+input::placeholder,
+textarea::placeholder {
+  color: #aaa;
+}
+
+/* Error message */
+.error {
+  margin-top: 6px;
+  color: var(--error-color);
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* File Input */
+input[type="file"] {
+  padding: 8px 0;
+}
+
+/* Submit Button */
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: black;
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
+}
+
+button[type="submit"]:hover {
+  background-color: #ff5252;
+  transform: scale(1.02);
+}
+
+.error {
+  color: #e63946; /* RED for errors */
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+  padding-left: 0.2rem;
+}
+
+/* Responsive (Mobile First) */
+@media (max-width: 600px) {
+  .form-container {
+    padding: 16px;
+    margin: 20px;
+  }
+}
+
+/* Custom Animation */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

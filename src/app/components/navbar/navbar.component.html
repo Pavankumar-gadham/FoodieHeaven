@@ -1,0 +1,68 @@
+
+<div class="container">
+  <div class="navbar-header">
+    <a routerLink="/">
+      <img src="assets/images/Foodieheaven.png" alt="Foodie Heaven Logo" class="navbar-logo" />
+    </a>
+
+    <!-- Mobile menu toggle -->
+    <button class="menu-toggle" (click)="isMenuOpen = !isMenuOpen">
+      <span *ngIf="!isMenuOpen">&#9776;</span>
+      <span *ngIf="isMenuOpen">&#10006;</span>
+    </button>
+  </div>
+
+  <!-- Navbar Links -->
+  <ul class="navbar-links" [class.open]="isMenuOpen">
+    <li>
+      <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    </li>
+
+    <!-- Categories Dropdown - Updated with mouseenter/mouseleave -->
+    <li class="nav-item dropdown" 
+        (mouseenter)="onDropdownMouseEnter()" 
+        (mouseleave)="onDropdownMouseLeave()"
+        (click)="toggleDropdownMobile()">
+      <a class="nav-link dropdown-toggle">Categories</a>
+      <div class="dropdown-menu" [class.show]="isDropdownOpen">
+        <!-- Category Grid -->
+        <div class="category-row">
+          <div *ngFor="let cat of categories.slice(0, 3)" class="dropdown-item">
+            <a [routerLink]="['/recipes']" [queryParams]="{ category: cat.id }">
+              <img [src]="cat.image" alt="{{cat.name}}" class="cat-icon" />
+              <span>{{ cat.name }}</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="category-row">
+          <div *ngFor="let cat of categories.slice(3, 6)" class="dropdown-item">
+            <a [routerLink]="['/recipes']" [queryParams]="{ category: cat.id }">
+              <img [src]="cat.image" alt="{{cat.name}}" class="cat-icon" />
+              <span>{{ cat.name }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </li>
+ 
+    <!-- Other menu items -->
+    <li><a routerLink="/recipes" routerLinkActive="active-link">All Recipes</a></li>
+    <li *ngIf="isLoggedIn"><a routerLink="/my-recipes" routerLinkActive="active-link">My Recipes</a></li>
+    <li *ngIf="isLoggedIn"><a routerLink="/add-recipe" routerLinkActive="active-link">Add Recipe</a></li>
+    <li *ngIf="!isLoggedIn"><a routerLink="/login" routerLinkActive="active-link">Login</a></li>
+    <li *ngIf="!isLoggedIn"><a routerLink="/register" routerLinkActive="active-link">Register</a></li>
+    <li *ngIf="isLoggedIn">
+    <li *ngIf="isLoggedIn"><a routerLink="/my-orders" routerLinkActive="active-link">My Orders</a></li>
+    <li *ngIf="isLoggedIn"><a routerLink="/purchased-recipes" routerLinkActive="active-link">Purchased Recipes</a></li>
+    <li style="position: relative;">
+    <a routerLink="/cart" routerLinkActive="active-link" class="cart-link">
+      Cart
+      <span *ngIf="cartCount > 0" class="cart-count-badge">{{ cartCount }}</span>
+    </a>
+    </li>
+    <li><a routerLink="/about-us" routerLinkActive="active-link">About Us</a></li>
+    <li *ngIf="isLoggedIn"><a style="cursor: pointer;" (click)="logout()">Logout</a></li>
+  </ul>
+</div>
+<br> 

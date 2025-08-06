@@ -1,0 +1,71 @@
+<section class="features">
+  <div class="home">
+    <img src="assets/images/fh5.png" alt="foodieheaven">
+  </div>
+  <div class="home">
+    <img src="assets/images/fh4.png" alt="foodieheaven">
+  </div>
+  <div class="home">
+    <img src="assets/images/fh1.png" alt="foodieheaven">
+  </div>
+  <div class="home">
+    <img src="assets/images/fh2.png" alt="foodieheaven">
+  </div>
+  <div class="home">
+    <img src="assets/images/fh3.png" alt="foodieheaven">
+  </div>
+</section>
+<br>
+<br>
+<div class="heading" style="text-align: center;">
+  <h3>Dinner should always be this easy and delicious.</h3>
+  <p>Life’s full enough already. With HelloFresh, planning, shopping, and cooking feel simple and satisfying.</p>
+</div>
+<br>
+
+<section class="features-section">
+  <div class="feature-card">
+    <img src="assets/images/veg2.jpg" alt="Chopped vegetables" class="feature-img">
+    <div class="feature-text">
+      <h3>Eat fresh, feel good</h3>
+      <p>Portioned, seasonal ingredients mean less waste and more flavor.</p>
+    </div>
+  </div>
+  <div class="feature-card">
+    <img src="assets/images/veg3.jpg" alt="Cooking salmon" class="feature-img">
+    <div class="feature-text">
+      <h3>Cook with confidence</h3>
+      <p>Step-by-step recipes make dinner feel doable, no matter your skill level.</p>
+    </div>
+  </div>
+  <div class="feature-card">
+    <img src="assets/images/veg4.jpg" alt="Pouring sauce on dish" class="feature-img">
+    <div class="feature-text">
+      <h3>Healthier made easier</h3>
+      <p>Choose from Calorie Smart, Protein Smart, and veggie-packed meals that support your goals.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter Section (placed completely outside the carousel) -->
+<section class="newsletter">
+  <div class="newsletter-content">
+    <h4>SIGN UP FOR EMAIL UPDATES</h4>
+    <h1><em>Never miss a new recipe</em></h1>
+    <p>
+      Our email newsletter delivers new recipes and special updates.  
+      It’s always free and you can unsubscribe any time.
+    </p>
+    <form class="email-form" (ngSubmit)="subscribe(emailInput.value)">
+      <input #emailInput type="email" placeholder="Email address" required>
+      <button type="submit">
+        <span>&#9993;</span>
+      </button>
+    </form>
+  </div>
+
+  <div class="newsletter-image">
+    <img src="assets/images/salad1.webp" alt="Salad Image">
+  </div>
+</section>
+

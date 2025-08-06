@@ -1,0 +1,22 @@
+<div class="cart-container">
+  <h2>🛒 My Cart</h2>
+
+  <div *ngIf="cartItems.length === 0">
+    <p style="color: black;">No recipes in cart!</p>
+  </div>
+
+  <div *ngFor="let item of cartItems; let i = index" class="cart-item">
+    <img [src]="item.recipe.image" alt="{{ item.recipe.title }}" class="cart-image" />
+    <div class="cart-info">
+      <h4>{{ item.recipe.title }}</h4>
+      <p>Price: ₹{{ item.recipe.price }}</p>
+      <button (click)="removeFromCart(item.id)">Remove</button>
+    </div>
+  </div> 
+
+  <div *ngIf="cartItems.length > 0" class="cart-summary">
+    <p><strong>Total:</strong> ₹{{ totalAmount }}</p>
+    <button routerLink="/checkout">Proceed to Checkout</button>
+    <button (click)="clearCart()">Clear Cart</button>
+  </div>
+</div>

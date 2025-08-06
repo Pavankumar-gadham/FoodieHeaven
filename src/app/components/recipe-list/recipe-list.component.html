@@ -1,0 +1,51 @@
+<div class="search-bar">
+  <input
+    type="text"
+    [(ngModel)]="searchQuery"
+    placeholder="Search recipes by title..."
+  />
+  <button (click)="searchRecipes()">Search</button>
+</div>
+
+
+<div class="main-container">
+  <h2>All Recipes</h2>
+
+  <div class="recipe-list">
+    <div *ngFor="let recipe of recipes" class="recipe-card">
+      <img [src]="recipe.image" alt="{{ recipe.title }}" class="recipe-image" />
+
+      <h3>{{ recipe.title }}</h3>
+      <p><strong>Description:</strong> {{ recipe.description }}</p>
+      <p><strong>Category:</strong> {{ recipe.category_name }}</p>
+      <p><strong>Preparation Time:</strong> {{ recipe.preparation_time }} mins</p>
+      <p><strong>Cooking Time:</strong> {{ recipe.cooking_time }} mins</p>
+      <p><strong>Rating:</strong> {{ recipe.rating }} / 5</p>
+      <button (click)="toggleProcess(recipe.id!)">
+        {{ processVisible[recipe.id!] ? 'Hide Process' : 'Buy Recipe to View Process' }}
+      </button>
+
+      <button (click)="addToCart(recipe)">Add to Cart</button>
+
+      <div 
+        class="process-content"
+        [class.visible]="processVisible[recipe.id!]">
+        <ol>
+          <li *ngFor="let step of recipe.process.split('\n')">{{ step }}</li>
+        </ol>
+      </div>
+
+      <div class="btn-group"
+           *ngIf="recipe.created_by && currentUser && recipe.created_by.trim().toLowerCase() === currentUser.trim().toLowerCase()">
+        <button (click)="editRecipe(recipe.id!)">Edit</button>
+        <button (click)="deleteRecipe(recipe.id!)">Delete</button>
+      </div>
+    </div>
+  </div>
+  <div class="pagination-controls">
+  <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+  <span>Page {{ currentPage }}</span>
+  <button (click)="nextPage()">Next</button>
+</div>
+
+</div>
