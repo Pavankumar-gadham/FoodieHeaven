@@ -68,3 +68,13 @@
     </button>
   </form>
 </div>
+
+<!-- New image preview -->
+<div class="form-group" *ngIf="selectedFile">
+  <img [src]="selectedFilePreview" alt="Preview" class="image-preview" />
+</div>
+
+<!-- Existing image (edit mode only) -->
+<div class="form-group" *ngIf="isEdit && !selectedFile && recipe.image">
+  <img [src]="recipe.image" alt="Current Image" class="image-preview" />
+</div>

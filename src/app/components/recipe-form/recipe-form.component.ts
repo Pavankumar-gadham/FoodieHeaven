@@ -21,8 +21,8 @@ export class RecipeFormComponent implements OnInit {
     cooking_time: 0,
     rating: 1,
     process: '',
-    price:0,
-    created_at:0
+    price: 0,
+    created_at: 0
   };
 
   selectedFile: File | null = null;
@@ -52,12 +52,21 @@ export class RecipeFormComponent implements OnInit {
     }
   }
 
+  selectedFilePreview: string | ArrayBuffer | null = null;
+
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
       this.fileError = false;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.selectedFilePreview = reader.result;
+      };
+      reader.readAsDataURL(this.selectedFile!);
     } else {
       this.fileError = true;
+      this.selectedFilePreview = null;
     }
   }
 
@@ -72,38 +81,83 @@ export class RecipeFormComponent implements OnInit {
       return;
     }
 
-    const formData = new FormData();
-
+    // If new image selected, upload to Cloudinary first
     if (this.selectedFile) {
-      formData.append('image', this.selectedFile);
-    }
+      const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/dusufolry/image/upload';
+      const cloudinaryPreset = 'presetimages';
 
-    formData.append('title', this.recipe.title);
-    formData.append('description', this.recipe.description);
-    formData.append('category', this.recipe.category.toString());
-    formData.append('preparation_time', this.recipe.preparation_time.toString());
-    formData.append('cooking_time', this.recipe.cooking_time.toString());
-    formData.append('rating', this.recipe.rating.toString());
-    formData.append('process', this.recipe.process);
+      const uploadData = new FormData();
+      uploadData.append('file', this.selectedFile);
+      uploadData.append('upload_preset', cloudinaryPreset);
 
-    if (this.isEdit) {
-      this.recipeService.updateRecipe(this.recipeId, formData).subscribe(() => {
-        alert('Recipe updated!');
-        this.router.navigate(['/my-recipes']);
-      });
+      fetch(cloudinaryUrl, {
+        method: 'POST',
+        body: uploadData
+      })
+        .then(response => response.json())
+        .then(cloudinaryRes => {
+          const imageUrl = cloudinaryRes.secure_url;
+
+          const formData = new FormData();
+          formData.append('image', imageUrl);
+          formData.append('title', this.recipe.title);
+          formData.append('description', this.recipe.description);
+          formData.append('category', this.recipe.category.toString());
+          formData.append('preparation_time', this.recipe.preparation_time.toString());
+          formData.append('cooking_time', this.recipe.cooking_time.toString());
+          formData.append('rating', this.recipe.rating.toString());
+          formData.append('process', this.recipe.process);
+
+          if (this.isEdit) {
+            this.recipeService.updateRecipe(this.recipeId, formData).subscribe({
+              next: () => {
+                alert('Recipe updated!');
+                this.router.navigate(['/my-recipes']);
+              },
+              error: (err) => {
+                console.error('Failed to update recipe:', err);
+                alert('Failed to update recipe!');
+              }
+            });
+          } else {
+            this.recipeService.addRecipe(formData).subscribe({
+              next: () => {
+                alert('Recipe added!');
+                this.router.navigate(['/my-recipes']);
+              },
+              error: (err) => {
+                console.error('Failed to add recipe:', err);
+                alert('Failed to add recipe!');
+              }
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Cloudinary upload error:', error);
+          alert('Image upload failed!');
+        });
+
     } else {
-      this.recipeService.addRecipe(formData).subscribe(() => {
-        alert('Recipe added!');
-        this.router.navigate(['/my-recipes']);
+      // Edit mode with no new image
+      const formData = new FormData();
+      formData.append('title', this.recipe.title);
+      formData.append('description', this.recipe.description);
+      formData.append('category', this.recipe.category.toString());
+      formData.append('preparation_time', this.recipe.preparation_time.toString());
+      formData.append('cooking_time', this.recipe.cooking_time.toString());
+      formData.append('rating', this.recipe.rating.toString());
+      formData.append('process', this.recipe.process);
+
+      this.recipeService.updateRecipe(this.recipeId, formData).subscribe({
+        next: () => {
+          alert('Recipe updated!');
+          this.router.navigate(['/my-recipes']);
+        },
+        error: (err) => {
+          console.error('Failed to update recipe:', err);
+          alert('Failed to update recipe!');
+        }
       });
     }
-
-    error: (err: any) => {
-  console.error('Failed to add recipe:', err);
-  alert('Failed to add recipe!');
-}
-
   }
-
-  
 }
