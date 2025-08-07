@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -20,8 +20,12 @@ export class TokenInterceptor implements HttpInterceptor {
     console.log('Intercepting request to:', request.url);
     console.log('Token present:', !!token);
 
-    const publicEndpoints = ['/api/register/', '/api/login/'];
-    const isPublic = publicEndpoints.some(url => request.url.includes(url));
+    const publicEndpoints = [
+      `${environment.apiUrl}/register/`,
+      `${environment.apiUrl}/login/`
+    ];
+
+    const isPublic = publicEndpoints.some(url => request.url.startsWith(url));
     console.log('Is public:', isPublic);
 
     if (token && !isPublic) {
