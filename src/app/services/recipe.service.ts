@@ -1,16 +1,17 @@
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Recipe } from '../recipe.model';
 import { CartItem } from '../cart-item.model';
+import { environment } from '../../environments/environment'; 
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
-  apiUrl = 'http://127.0.0.1:8000/api';
+  apiUrl = environment.apiUrl;
 
   private cartCountSubject = new BehaviorSubject<number>(0);
   cartCount$ = this.cartCountSubject.asObservable();
@@ -164,5 +165,3 @@ export class RecipeService {
     return Promise.all(requests);
   }
 }
-
-
